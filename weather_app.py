@@ -1,7 +1,15 @@
+import ctypes
+import os
+import sys
 import tkinter as tk
 from tkinter import messagebox
 import requests
 from datetime import datetime, timedelta
+
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+    "utoxas.calculator_python"
+)
+
 
 API_KEY = "775e151451f1cda08020afaa7b34e227"
 
@@ -61,6 +69,32 @@ def get_weather():
     except Exception as e:
         messagebox.showerror("Error", f"Failed to fetch weather data: {str(e)}")
 
+
+def set_app_icon(icon_path):
+    """Sets the application icon for the window and taskbar."""
+    try:
+        # self.root.iconbitmap(icon_path)
+        icon = tk.PhotoImage(file=resource_path(icon_path))
+        root.iconphoto(True, icon)
+
+    except tk.TclError:
+        print(
+            f"Error: Could not set icon from {icon_path}. Check file path and format."
+        )
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
+
+
+set_app_icon("icon.png")
 
 title_label = tk.Label(
     root, text="Weather App", font=("Arial", 20, "bold"), bg="#ECEFF1", fg="#37474F"
