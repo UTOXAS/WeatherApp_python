@@ -7,7 +7,7 @@ import requests
 from datetime import datetime, timedelta
 
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
-    "utoxas.calculator_python"
+    "utoxas.weather_app"
 )
 
 
